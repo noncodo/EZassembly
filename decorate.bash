@@ -37,7 +37,7 @@ fi
 
 ## Index trinity fasta for kallisto
 if [[ ! -e kallisto_trinity.index ]]; then 
-	$KALLISTOBIN index -i kallisto_trinity.index $TRINITYFASTA
+	$KALLISTOBIN index -i kallisto_trinity.index ../$TRINITYFASTA
 fi
 
 ## Run kallisto on all samples 
