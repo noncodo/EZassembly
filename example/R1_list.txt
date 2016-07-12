@@ -1,0 +1,3 @@
+/home/marsmi/share/apps/example/R1_list.txt
+/home/marsmi/share/apps/example/sample1_R1.fq
+/home/marsmi/share/apps/example/sample2_R1.fq
