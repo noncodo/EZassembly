@@ -51,8 +51,4 @@ Common hard-to-diagnose problems include:
 
 Email m.smith@garvan.org.au for help. 
 
-N.B. 
-Any custom troubleshooting may require compensation in the form of fermented malt with hops. 
-=======
-# EZassembly
-All in one script for RNAseq ab initio assembly, mapping, differential expression, and annotation with reference 
+N.B.  Any custom troubleshooting may require compensation in the form of fermented malt with hops. 
