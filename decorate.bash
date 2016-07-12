@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source custom.cfg
-TRINITYFASTA="Trinity.fasta" # $MYOUT
+TRINITYFASTA="./Trinity.fasta" # $MYOUT
 NUMSAMPLES=$(wc -l R1.txt)
 CPU="4"
 
