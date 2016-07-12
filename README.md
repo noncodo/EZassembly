@@ -1,4 +1,13 @@
-This script splits up the Trinity pipeline into 3 stages, each using optimal server resources 
+<<<<<<< HEAD
+# EZassembly
+Integrated pipeline for all in one ab initio assembly, mapping, annotation, and differential 
+expression of RNAseq data when a reference transcriptome is available (reference agnostic). 
+
+Requires SGE HPC environment and several common and easy to compile dependencies.
+
+## What it does
+
+Splits up the Trinity pipeline into 3 stages, each using optimal server resources 
 ensuring that the job finishes quickly, and that you are not monopolosing resources. 
 
 How to use it:
@@ -43,3 +52,7 @@ Email m.smith@garvan.org.au for help.
 
 N.B. 
 Any custom troubleshooting may require compensation in the form of fermented malt with hops. 
+=======
+# EZassembly
+All in one script for RNAseq ab initio assembly, mapping, differential expression, and annotation with reference 
+>>>>>>> 7313291f5c26cd0310baedc0eb32bf135fb9c85e
