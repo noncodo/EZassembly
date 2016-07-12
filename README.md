@@ -27,7 +27,7 @@ How to use it:
 	to be assembled (one per line). 
 	
 	for file in /path/to/dir_1/*_R1.fastq /path/to/dir_2/*_R1.fastq; do echo $file ; done > R1.txt
-        for file in /path/to/dir_1/*_R2.fastq /path/to/dir_2/*_R2.fastq; do echo $file ; done > R2.txt
+	for file in /path/to/dir_1/*_R2.fastq /path/to/dir_2/*_R2.fastq; do echo $file ; done > R2.txt
 
 (5) 	Run a full job. Example:
 	./dynomite.bash ./R1.txt ./R2.txt 	
