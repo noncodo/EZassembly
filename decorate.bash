@@ -55,11 +55,12 @@ fi
 cat >  kallisto_quant.sge << EOF 
  f1=\$( sed \${SGE_TASK_ID}'q;d' ../R1.txt ) 
  f2=\$( sed \${SGE_TASK_ID}'q;d' ../R2.txt ) 
- filename=\${file##*/}
- $KALLISTOBIN quant  -i kallisto_trinity.index -t ${CPU} ${KSTRAND} -b 100 --bias -o \${filename%_*} \${f1} \${f2}
+ outdir=\${f1##*/}
+ cmd="${KALLISTOBIN} quant  -i kallisto_trinity.index -t ${CPU} ${KSTRAND} -b 100 --bias -o \${outdir%_*} \${f1} \${f2}"
+ \$cmd && echo \$cmd
 EOF
 chmod 755 kallisto_quant.sge
-qsub -cwd -S /bin/bash -N Klsto_Q -S /bin/bash -j y -b y -V -pe smp 6 -l h_vmem=6G,mem_requested=6G -t 1:$( wc -l ../R1.txt | awk '{print $1}' ) ./kallisto_quant.sge
+qsub -cwd -S /bin/bash -N Klsto_Q -S /bin/bash -j y -b y -V -pe smp 6 -l h_vmem=3G,mem_requested=3G -t 1:$( wc -l ../R1.txt | awk '{print $1}' ) ./kallisto_quant.sge
 
 
 
