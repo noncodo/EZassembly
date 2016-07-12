@@ -37,21 +37,29 @@ fi
 
 ## Index trinity fasta for kallisto
 if [[ ! -e kallisto_trinity.index ]]; then 
-	$KALLISTOBIN index -i kallisto_trinity.index ../$TRINITYFASTA
+	## no SGE 
+	#$KALLISTOBIN index -i kallisto_trinity.index ../$TRINITYFASTA
+	## with SGE
+	JID=$( qsub -cwd -terse -l mem_requested=128G,h_vmem=132G -b y -o ./out.sge -V -j y $KALLISTOBIN index -i kallisto_trinity.index ../$TRINITYFASTA ) 
 fi
 
 ## Run kallisto on all samples 
-for f in { 1..${NUMSAMPLES} } ; do 
-	CMD="kallisto quant -t ${CPU} ${KSTRAND} -b 50 --bias -i kallisto_trinity.index -o ${file%_*}  $( sed $i'q;d' ../R1.txt ) $( sed $i'q;d' ../R2.txt)"
-	$CMD && echo $CMD	
-done 
 
-## Uncomment below (comment out above) for many samples in an SGE environments: 
-# cat >  kallisto_quant.sge << EOF 
-# !/bin/bash
-# file=\$( sed \${SGE_TASK_ID} 'q;d' ../R1.txt ) 
-# filename=\${file##*/}
-# kallisto quant -i HMEC_trinity.idx -o \${filename%_*} --bias --threads 6 -b 100 \$file \${file%_*}_R2.fastq
-# EOF
-# chmod 755 kallisto_quant.sge
-# qsub -cwd -N Klsto_Q -S /bin/bash -j y -b y -V -pe smp 6 -l h_vmem=6G,mem_requested=6G -t 1:$( wc -l ../R1.txt | awk '{print $1}'' ) ./kallisto_quant.sge
+## No SGE
+# for f in { 1..${NUMSAMPLES} } ; do 
+# 	CMD=" $KALLISTOBIN quant -t ${CPU} ${KSTRAND} -b 50 --bias -i kallisto_trinity.index -o ${file%_*}  $( sed $i'q;d' ../R1.txt ) $( sed $i'q;d' ../R2.txt)"
+# 	$CMD && echo $CMD	
+# done 
+
+## With  SGE
+cat >  kallisto_quant.sge << EOF 
+ f1=\$( sed \${SGE_TASK_ID}'q;d' ../R1.txt ) 
+ f2=\$( sed \${SGE_TASK_ID}'q;d' ../R2.txt ) 
+ filename=\${file##*/}
+ $KALLISTOBIN quant quant -i kallisto_trinity.index -t ${CPU} ${KSTRAND} -b 100 --bias -o \${filename%_*} \${f1} \${f2}
+EOF
+chmod 755 kallisto_quant.sge
+
+qsub -cwd -S /bin/bash -N Klsto_Q -S /bin/bash -j y -b y -V -pe smp 6 -l h_vmem=6G,mem_requested=6G -t 1:$( wc -l ../R1.txt | awk '{print $1}' ) ./kallisto_quant.sge
+
+
