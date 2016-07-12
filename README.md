@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # EZassembly
 Integrated pipeline for all in one ab initio assembly, mapping, annotation, and differential 
 expression of RNAseq data when a reference transcriptome is available (reference agnostic). 
@@ -9,6 +8,8 @@ Requires SGE HPC environment and several common and easy to compile dependencies
 
 Splits up the Trinity pipeline into 3 stages, each using optimal server resources 
 ensuring that the job finishes quickly, and that you are not monopolosing resources. 
+Based on this analysis <http://dx.doi.org/10.1145/2335755.2335842>
+
 
 How to use it:
 
@@ -55,4 +56,3 @@ Any custom troubleshooting may require compensation in the form of fermented mal
 =======
 # EZassembly
 All in one script for RNAseq ab initio assembly, mapping, differential expression, and annotation with reference 
->>>>>>> 7313291f5c26cd0310baedc0eb32bf135fb9c85e
