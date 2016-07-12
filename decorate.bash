@@ -1,12 +1,12 @@
 #!/bin/bash
 
 source custom.cfg
-TRINITYFASTA="~/Downloads/Trinity.fasta" # $MYOUT
+TRINITYFASTA="Trinity.fasta" # $MYOUT
 NUMSAMPLES=$(wc -l R1.txt)
 CPU="4"
 
 #get strand info
-if [[ -z $STRAND ]]; then 
+if [[ -n $STRAND ]]; then 
 	if [[ $STRAND == "FR" ]]; then 
 		KSTRAND="--fr-stranded"
 	else
@@ -19,14 +19,14 @@ fi
 
 #kallisto required. 
 KALLISTOBIN=$( which kallisto )
-if [[ ! -z $KALLISTOBIN ]]; then 
+if [[ -z $KALLISTOBIN ]]; then 
 	echo "Kallisto not found in $PATH." 
 	echo "Install and link kallisto from here: https://github.com/pachterlab/kallisto" 
 fi
 
 #samtools recommended for bam pseudoalignments
 SAMTOOLSBIN=$( which samtools )
-if [[ ! -z $SAMTOOLSBIN ]]; then 
+if [[ -z $SAMTOOLSBIN ]]; then 
 	echo "Samtools not found in $PATH." 
 	echo "Install and link samtools from here: https://github.com/samtools/samtools" 
 fi
