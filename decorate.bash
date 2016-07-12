@@ -43,7 +43,7 @@ if [[ ! -e kallisto_trinity.index ]]; then
 	JID=$( qsub -cwd -terse -l mem_requested=128G,h_vmem=132G -b y -o ./out.sge -V -j y $KALLISTOBIN index -i kallisto_trinity.index ../$TRINITYFASTA ) 
 fi
 
-## Run kallisto on all samples 
+#### Run kallisto on all samples 
 
 ## No SGE
 # for f in { 1..${NUMSAMPLES} } ; do 
@@ -56,10 +56,10 @@ cat >  kallisto_quant.sge << EOF
  f1=\$( sed \${SGE_TASK_ID}'q;d' ../R1.txt ) 
  f2=\$( sed \${SGE_TASK_ID}'q;d' ../R2.txt ) 
  filename=\${file##*/}
- $KALLISTOBIN quant quant -i kallisto_trinity.index -t ${CPU} ${KSTRAND} -b 100 --bias -o \${filename%_*} \${f1} \${f2}
+ $KALLISTOBIN quant  -i kallisto_trinity.index -t ${CPU} ${KSTRAND} -b 100 --bias -o \${filename%_*} \${f1} \${f2}
 EOF
 chmod 755 kallisto_quant.sge
-
 qsub -cwd -S /bin/bash -N Klsto_Q -S /bin/bash -j y -b y -V -pe smp 6 -l h_vmem=6G,mem_requested=6G -t 1:$( wc -l ../R1.txt | awk '{print $1}' ) ./kallisto_quant.sge
+
 
 
